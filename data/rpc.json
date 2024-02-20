@@ -1,0 +1,70 @@
+{
+  "ethereum": {
+    "rpc": [
+      "https://rpc.ankr.com/eth"
+    ],
+    "explorer": "https://etherscan.io/tx/",
+    "token": "ETH",
+    "eip1559": true
+  },
+  "arbitrum": {
+    "rpc": [
+      "https://rpc.ankr.com/arbitrum"
+    ],
+    "explorer": "https://arbiscan.io/tx/",
+    "token": "ETH",
+    "eip1559": true
+  },
+  "optimism": {
+    "rpc": [
+      "https://rpc.ankr.com/optimism"
+    ],
+    "explorer": "https://optimistic.etherscan.io/tx/",
+    "token": "ETH",
+    "eip1559": true
+  },
+  "polygon_zkevm": {
+    "rpc": [
+      "https://rpc.ankr.com/polygon_zkevm"
+    ],
+    "explorer": "https://zkevm.polygonscan.com/tx/",
+    "token": "ETH",
+    "eip1559": false
+  },
+  "zksync": {
+    "rpc": [
+      "https://rpc.ankr.com/zksync_era"
+    ],
+    "explorer": "https://explorer.zksync.io/tx/",
+    "token": "ETH",
+    "eip1559": true
+  },
+  "base": {
+    "rpc": [
+      "https://rpc.ankr.com/base",
+      "https://base.llamarpc.com"
+    ],
+    "explorer": "https://basescan.org/tx/",
+    "token": "ETH",
+    "eip1559": true
+  },
+  "linea": {
+    "rpc": [
+      "https://linea.drpc.org",
+      "https://1rpc.io/linea",
+      "https://rpc.linea.build"
+    ],
+    "explorer": "https://lineascan.build/",
+    "token": "ETH",
+    "eip1559": false
+  },
+  "scroll": {
+    "rpc": [
+      "https://rpc.scroll.io",
+      "https://scroll.blockpi.network/v1/rpc/public"
+    ],
+    "explorer": "https://scrollscan.com/tx",
+    "token": "ETH",
+    "eip1559": false
+  }
+}
