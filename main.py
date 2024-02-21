@@ -19,6 +19,7 @@ from settings import (
     QUANTITY_THREADS,
     THREAD_SLEEP_FROM,
     THREAD_SLEEP_TO,
+    SAVE_LOGS
 )
 import threading
 
@@ -141,7 +142,8 @@ def main(module):
 
 if __name__ == '__main__':
 
-    logger.add('logs.txt', filter=filter_out_utils)
+    if SAVE_LOGS:
+        logger.add('logs.txt', filter=filter_out_utils)
 
     module = get_module()
     if module == "tx_checker":
