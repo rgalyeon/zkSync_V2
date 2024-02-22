@@ -31,6 +31,7 @@ MAX_PRIORITY_FEE = {
     "arbitrum": 0.1,
     "base": 0.001,
     "zksync": 0.1,
+    "optimism": 0.001
 }
 
 GAS_MULTIPLIER = 1.3

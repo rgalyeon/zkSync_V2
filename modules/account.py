@@ -22,7 +22,7 @@ class Account:
         self.chain = chain
         self.explorer = RPC[chain]["explorer"]
         self.token = RPC[chain]["token"]
-        self.proxy = f"http://{wallet_info['proxy']}"
+        self.proxy = f"http://{wallet_info['proxy']}" if wallet_info['proxy'] else None
 
         self.request_kwargs = {}
 
