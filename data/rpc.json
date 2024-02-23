@@ -48,22 +48,29 @@
     "token": "ETH",
     "eip1559": true
   },
+  "scroll": {
+    "rpc": [
+      "https://rpc.scroll.io"
+    ],
+    "explorer": "https://scrollscan.com/tx/",
+    "token": "ETH",
+    "eip1559": false
+  },
   "linea": {
     "rpc": [
       "https://linea.drpc.org",
       "https://1rpc.io/linea",
       "https://rpc.linea.build"
     ],
-    "explorer": "https://lineascan.build/",
+    "explorer": "https://lineascan.build/tx/",
     "token": "ETH",
     "eip1559": false
   },
-  "scroll": {
+  "zora": {
     "rpc": [
-      "https://rpc.scroll.io",
-      "https://scroll.blockpi.network/v1/rpc/public"
+      "https://rpc.zora.energy"
     ],
-    "explorer": "https://scrollscan.com/tx",
+    "explorer": "https://zora.superscan.network/tx/",
     "token": "ETH",
     "eip1559": false
   }
