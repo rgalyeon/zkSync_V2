@@ -24,6 +24,8 @@ class Multiswap(Account):
             "vesync": VeSync
         }
 
+        self.wallet_info = wallet_info
+
     def get_swap_module(self, use_dex: list):
         swap_module = random.choice(use_dex)
         return self.swap_modules[swap_module]
@@ -70,7 +72,7 @@ class Multiswap(Account):
                 min_amount = balance["balance"] if balance["balance"] <= 1 else balance["balance"] / 100 * min_percent
                 max_amount = balance["balance"] if balance["balance"] <= 1 else balance["balance"] / 100 * max_percent
 
-            swap_module = self.get_swap_module(use_dex)(self.account_id, self.private_key, self.proxy)
+            swap_module = self.get_swap_module(use_dex)(self.wallet_info)
             await swap_module.swap(
                 token,
                 to_token,
