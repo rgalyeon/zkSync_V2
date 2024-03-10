@@ -11,8 +11,6 @@ class ZkSync(Transfer):
     def __init__(self, wallet_info) -> None:
         super().__init__(wallet_info)
 
-    @retry
-    @check_gas
     async def deposit(
             self,
             min_amount: float,
@@ -64,8 +62,6 @@ class ZkSync(Transfer):
 
         await self.wait_until_tx_finished(txn_hash.hex())
 
-    @retry
-    @check_gas
     async def withdraw(
             self,
             min_amount: float, max_amount: float, decimal: int,
