@@ -12,24 +12,16 @@ class ReactorFusion(Account):
 
         self.contract = self.get_contract(REACTORFUSION_CONTRACTS["landing"], REACTORFUSION_ABI)
 
-    async def get_deposit_amount(self):
-        amount = await self.contract.functions.balanceOf(self.address).call()
-        return amount
+    async def router(self, min_amount,
+                     max_amount,
+                     decimal,
+                     sleep_from,
+                     sleep_to,
+                     make_withdraw,
+                     all_amount,
+                     min_percent,
+                     max_percent):
 
-    @retry
-    @check_gas
-    async def deposit(
-            self,
-            min_amount: float,
-            max_amount: float,
-            decimal: int,
-            sleep_from: int,
-            sleep_to: int,
-            make_withdraw: bool,
-            all_amount: bool,
-            min_percent: int,
-            max_percent: int
-    ):
         amount_wei, amount, balance = await self.get_amount(
             "ETH",
             min_amount,
@@ -39,6 +31,19 @@ class ReactorFusion(Account):
             min_percent,
             max_percent
         )
+
+        await self.deposit(amount_wei, amount, balance)
+        if make_withdraw:
+            await sleep(sleep_from, sleep_to)
+            await self.withdraw()
+
+    async def get_deposit_amount(self):
+        amount = await self.contract.functions.balanceOf(self.address).call()
+        return amount
+
+    @retry
+    @check_gas
+    async def deposit(self, amount_wei, amount, balance):
 
         logger.info(f"[{self.account_id}][{self.address}] Make deposit on ReactorFusion | {amount} ETH")
 
@@ -51,11 +56,6 @@ class ReactorFusion(Account):
         txn_hash = await self.send_raw_transaction(signed_txn)
 
         await self.wait_until_tx_finished(txn_hash.hex())
-
-        if make_withdraw:
-            await sleep(sleep_from, sleep_to)
-
-            await self.withdraw()
 
     @retry
     @check_gas

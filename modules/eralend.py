@@ -12,24 +12,16 @@ class Eralend(Account):
 
         self.contract = self.get_contract(ERALEND_CONTRACTS["landing"], ERALEND_ABI)
 
-    async def get_deposit_amount(self):
-        amount = await self.contract.functions.balanceOfUnderlying(self.address).call()
-        return amount
+    async def router(self, min_amount,
+                     max_amount,
+                     decimal,
+                     sleep_from,
+                     sleep_to,
+                     make_withdraw,
+                     all_amount,
+                     min_percent,
+                     max_percent):
 
-    @retry
-    @check_gas
-    async def deposit(
-            self,
-            min_amount: float,
-            max_amount: float,
-            decimal: int,
-            sleep_from: int,
-            sleep_to: int,
-            make_withdraw: bool,
-            all_amount: bool,
-            min_percent: int,
-            max_percent: int
-    ):
         amount_wei, amount, balance = await self.get_amount(
             "ETH",
             min_amount,
@@ -39,6 +31,19 @@ class Eralend(Account):
             min_percent,
             max_percent
         )
+
+        await self.deposit(amount_wei, amount, balance)
+        if make_withdraw:
+            await sleep(sleep_from, sleep_to)
+            await self.withdraw()
+
+    async def get_deposit_amount(self):
+        amount = await self.contract.functions.balanceOfUnderlying(self.address).call()
+        return amount
+
+    @retry
+    @check_gas
+    async def deposit(self, amount_wei, amount, balance):
 
         tx = {
             "chainId": await self.w3.eth.chain_id,
@@ -57,11 +62,6 @@ class Eralend(Account):
         txn_hash = await self.send_raw_transaction(signed_txn)
 
         await self.wait_until_tx_finished(txn_hash.hex())
-
-        if make_withdraw:
-            await sleep(sleep_from, sleep_to)
-
-            await self.withdraw()
 
     @retry
     @check_gas

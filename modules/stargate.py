@@ -9,6 +9,7 @@ from .syncswap import SyncSwap
 class Stargate(Account):
     def __init__(self, wallet_info) -> None:
         super().__init__(wallet_info, chain="zksync")
+        self.wallet_info = wallet_info
 
         self.brdige_contract = self.get_contract(STARGATE_CONTRACT, STARGATE_ABI)
 
@@ -39,7 +40,7 @@ class Stargate(Account):
             min_percent: int,
             max_percent: int
     ):
-        syncswap = SyncSwap(self.account_id, self.private_key, self.proxy)
+        syncswap = SyncSwap(self.wallet_info)
         await syncswap.swap(
             "ETH",
             "MAV",

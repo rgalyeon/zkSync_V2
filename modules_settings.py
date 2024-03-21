@@ -52,11 +52,11 @@ async def withdraw_zksync(wallet_info):
     Description: look at deposit_zksync
     """
 
-    min_amount = 0.0012
-    max_amount = 0.0012
+    min_amount = 0.01
+    max_amount = 0.015
     decimal = 4
 
-    all_amount = True
+    all_amount = False
 
     min_percent = 10
     max_percent = 10
@@ -108,7 +108,7 @@ async def withdraw_okx(wallet_info):
 
 
 async def transfer_to_okx(wallet_info):
-    from_chains = ["optimism", "arbitrum"]
+    from_chains = ["optimism"]
 
     min_amount = 0.0012
     max_amount = 0.0012
@@ -122,8 +122,8 @@ async def transfer_to_okx(wallet_info):
     save_funds = [0.0001, 0.00012]
     min_required_amount = 0.002
 
-    bridge_from_all_chains = True
-    sleep_between_transfers = [120, 350]
+    bridge_from_all_chains = False
+    sleep_between_transfers = [1, 1]
 
     transfer_inst = Transfer(wallet_info)
     await transfer_inst.transfer_eth(
@@ -697,7 +697,7 @@ async def deposit_eralend(wallet_info):
     max_percent = 10
 
     eralend_inst = Eralend(wallet_info)
-    await eralend_inst.deposit(
+    await eralend_inst.router(
         min_amount, max_amount, decimal, sleep_from, sleep_to, make_withdraw, all_amount, min_percent, max_percent
     )
 
@@ -725,7 +725,7 @@ async def deposit_basilisk(wallet_info):
     max_percent = 80
 
     basilisk_inst = Basilisk(wallet_info)
-    await basilisk_inst.deposit(
+    await basilisk_inst.router(
         min_amount, max_amount, decimal, sleep_from, sleep_to, make_withdraw, all_amount, min_percent, max_percent
     )
 
@@ -753,7 +753,7 @@ async def deposit_reactorfusion(wallet_info):
     max_percent = 80
 
     reactorfusion_inst = ReactorFusion(wallet_info)
-    await reactorfusion_inst.deposit(
+    await reactorfusion_inst.router(
         min_amount, max_amount, decimal, sleep_from, sleep_to, make_withdraw, all_amount, min_percent, max_percent
     )
 
